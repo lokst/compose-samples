@@ -1,14 +1,6 @@
 name: Jetchat
 
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'Jetchat/**'
-  pull_request:
-    paths:
-      - 'Jetchat/**'
+on: [push]
 
 env:
   SAMPLE_PATH: Jetchat
@@ -64,7 +56,13 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        api-level: [23, 26, 29]
+        os: [macos-latest]
+        api-level: [29, 30]
+        target: [google_apis, google_apis_playstore]
+        exclude:
+          - os: macos-latest
+            api-level: 30
+            target: google_apis_playstore
 
     steps:
       - name: Checkout
